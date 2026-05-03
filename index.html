@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>NEXUS.7 // TRANSMISSIONS FROM THE DIGITAL UNDERGROUND</title>
+<meta name="description" content="An archive of forbidden signals from the megacity. Jack in." />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230a0a0f'/%3E%3Ctext x='8' y='12' font-family='monospace' font-size='12' font-weight='900' text-anchor='middle' fill='%23e8e6dc'%3EN%3C/text%3E%3Crect x='13' y='2' width='2' height='2' fill='%23ff2e4d'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;700&family=Press+Start+2P&display=swap" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body data-loaded="false">
+
+<!-- ============ BOOT SEQUENCE ============ -->
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="boot__inner">
+    <pre class="boot__log" id="bootLog"></pre>
+    <div class="boot__bar"><span id="bootBar"></span></div>
+  </div>
+</div>
+
+<!-- ============ GLOBAL OVERLAYS ============ -->
+<div class="scanlines" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="glitch-flash" id="glitchFlash" aria-hidden="true"></div>
+
+<!-- ============ DOSSIER MODAL ============ -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal__backdrop" data-close></div>
+  <article class="modal__panel" role="document">
+    <header class="modal__head">
+      <span class="modal__id" id="modalKind">CASE FILE</span>
+      <button class="modal__close" type="button" data-close aria-label="Close dossier">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      </button>
+    </header>
+    <div class="modal__body">
+      <figure class="modal__art">
+        <div class="modal__art-frame">
+          <img id="modalImg" alt="" />
+        </div>
+        <figcaption id="modalCaption" class="modal__caption"></figcaption>
+      </figure>
+      <div class="modal__info">
+        <p class="modal__tag" id="modalTag">— —</p>
+        <h2 class="modal__title" id="modalTitle">—</h2>
+        <p class="modal__lead" id="modalLead">—</p>
+        <dl class="modal__specs" id="modalSpecs"></dl>
+        <div class="modal__actions">
+          <button class="btn btn--primary" type="button" data-close>
+            <span>CLOSE FILE</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <footer class="modal__foot">
+      <span>NEXUS.7 // ENCRYPTED DOSSIER</span>
+      <span id="modalRef">REF #—</span>
+    </footer>
+  </article>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="nav__brand" href="#top" aria-label="NEXUS.7 home">
+    <span class="logo" aria-hidden="true">
+      <span class="logo__a">NEXUS</span><span class="logo__dot">.</span><span class="logo__num">7</span>
+    </span>
+  </a>
+  <nav class="nav__links">
+    <a href="#manifesto">MANIFESTO</a>
+    <a href="#transmissions">TRANSMISSIONS</a>
+    <a href="#drop">FEATURED</a>
+    <a href="#operatives">OPERATIVES</a>
+    <a href="#vault">VAULT</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero" aria-label="Hero">
+    <div class="hero__stage">
+      <img class="hero__layer" data-depth="0.05" src="assets/final/hero-sky.png" alt="" />
+      <img class="hero__layer" data-depth="0.18" src="assets/final/hero-skyline-far.png" alt="" />
+      <img class="hero__layer" data-depth="0.35" src="assets/final/hero-skyline-mid.png" alt="" />
+      <img class="hero__layer" data-depth="0.65" src="assets/final/hero-foreground.png" alt="" />
+      <div class="hero__rain" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero__content">
+      <h1 class="hero__title">
+        <span class="line"><span class="word">JACK</span> <span class="word">IN.</span></span>
+        <span class="line line--small">listen to what they tried to bury.</span>
+      </h1>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#manifesto">
+          <span>OPEN TRANSMISSION</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        </a>
+        <a class="btn btn--ghost" href="#vault"><span>BROWSE VAULT</span></a>
+      </div>
+      <div class="hero__meta">
+        <div><span>LAT</span> 34.6937°N</div>
+        <div><span>LON</span> 135.5023°E</div>
+        <div><span>FREQ</span> 107.7 MHz</div>
+        <div><span>ENC</span> RC4-OBSOLETE</div>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span>SCROLL</span>
+      <span class="hero__scroll-arrow">▼</span>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto" id="manifesto" aria-label="Manifesto">
+    <div class="manifesto__divider">▓▓▒▒░░ TRANSMISSION 07-A ░░▒▒▓▓</div>
+    <div class="manifesto__grid">
+      <div class="manifesto__portrait">
+        <img src="assets/transparent/manifesto-portrait.png" alt="Anonymous figure in hooded jacket, single red eye glowing from shadow." />
+        <div class="manifesto__portrait-tag">SUBJECT // UNKNOWN</div>
+      </div>
+      <div class="manifesto__copy">
+        <p class="terminal" id="terminalLine">$ ./decrypt --signal=07A --bypass=corp_filter</p>
+        <h2>WE ARE THE SIGNAL<br/>YOU WERE TOLD TO IGNORE.</h2>
+        <p class="manifesto__lead">
+          Every megacorp owns a frequency. We own the static between them.
+          NEXUS.7 is a co-operative of operatives, archivists, and ghosts —
+          publishing the documents the cities refuse to acknowledge.
+        </p>
+        <ul class="manifesto__creed">
+          <li><span>01</span> Memory is a weapon. Sharpen it.</li>
+          <li><span>02</span> A network owned by everyone is owned by no one.</li>
+          <li><span>03</span> Burn no archive. Even the ugly ones.</li>
+          <li><span>04</span> Pay the courier.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRANSMISSIONS GRID ============ -->
+  <section class="transmissions" id="transmissions" aria-label="Transmissions">
+    <header class="section-head">
+      <p class="eyebrow">— ACTIVE FEEDS</p>
+      <h2>TRANSMISSIONS</h2>
+      <p class="lede">Six dispatches currently uplinked to the public mesh. Tap a feed to view the case file.</p>
+    </header>
+
+    <div class="bento">
+      <article class="card card--a" tabindex="0" data-kind="tx" data-key="tx-01">
+        <div class="card__art"><img src="assets/transparent/tx-01-ramen.png" alt="" /></div>
+        <div class="card__meta">
+          <span class="card__tag">FEED 01</span>
+          <h3>THE BOWL THAT KNEW</h3>
+          <p>A ramen shop in Sector 4 leaks corporate secrets through its broth. Three diners disappeared.</p>
+          <span class="card__date">2087.11.04 // 03:47</span>
+        </div>
+      </article>
+
+      <article class="card card--b" tabindex="0" data-kind="tx" data-key="tx-02">
+        <div class="card__art"><img src="assets/transparent/tx-02-payphone.png" alt="" /></div>
+        <div class="card__meta">
+          <span class="card__tag">FEED 02</span>
+          <h3>NO SIGNAL, NO LIE</h3>
+          <p>The last working payphone in the megacity dialed itself for nine minutes. Recording attached.</p>
+          <span class="card__date">2087.11.06 // 22:10</span>
+        </div>
+      </article>
+
+      <article class="card card--c" tabindex="0" data-kind="tx" data-key="tx-03">
+        <div class="card__art"><img src="assets/transparent/tx-03-cassette.png" alt="" /></div>
+        <div class="card__meta">
+          <span class="card__tag">FEED 03</span>
+          <h3>EVIDENCE / 2087-11</h3>
+          <p>One tape. Forty seconds of audio. The voice on it was declared dead in 2079.</p>
+          <span class="card__date">2087.11.09 // 14:02</span>
+        </div>
+      </article>
+
+      <article class="card card--d" tabindex="0" data-kind="tx" data-key="tx-04">
+        <div class="card__art"><img src="assets/transparent/tx-04-window.png" alt="" /></div>
+        <div class="card__meta">
+          <span class="card__tag">FEED 04</span>
+          <h3>THE NEIGHBOUR</h3>
+          <p>For 31 nights, the apartment across the alley has not turned off its light. We watched back.</p>
+          <span class="card__date">2087.11.12 // 01:33</span>
+        </div>
+      </article>
+
+      <article class="card card--e" tabindex="0" data-kind="tx" data-key="tx-05">
+        <div class="card__art"><img src="assets/transparent/tx-05-vendor.png" alt="" /></div>
+        <div class="card__meta">
+          <span class="card__tag">FEED 05</span>
+          <h3>BOOTLEG MARKET</h3>
+          <p>A vendor under the rail bridge sells datachips that aren't supposed to exist. We bought one.</p>
+          <span class="card__date">2087.11.15 // 19:55</span>
+        </div>
+      </article>
+
+      <article class="card card--f" tabindex="0" data-kind="tx" data-key="tx-06">
+        <div class="card__art"><img src="assets/transparent/tx-06-bike.png" alt="" /></div>
+        <div class="card__meta">
+          <span class="card__tag">FEED 06</span>
+          <h3>RIDER UNKNOWN</h3>
+          <p>A red sport bike has been parked in the same alley for seven nights. The helmet is always warm.</p>
+          <span class="card__date">2087.11.18 // 04:21</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED DROP — HORIZONTAL SCROLL ============ -->
+  <section class="drop" id="drop" aria-label="Featured drop">
+    <div class="drop__pin">
+      <div class="drop__intro">
+        <p class="eyebrow">— FEATURED DROP // 011</p>
+        <h2>THE LAST<br/>NIGHT IN<br/>NEO-OSAKA</h2>
+        <p class="lede">A five-frame transmission. Recovered from a courier's drive twenty minutes after they were arrested.</p>
+        <p class="drop__hint">↓ scroll →</p>
+      </div>
+      <div class="drop__scenes" id="dropScenes">
+        <figure class="scene"><img src="assets/drops/drop-scene-01.png" alt="Lone figure overlooks the megacity from a rooftop at dusk."/><figcaption>I. THE ROOFTOP</figcaption></figure>
+        <figure class="scene"><img src="assets/drops/drop-scene-02.png" alt="Crowded neon market street at night."/><figcaption>II. THE MARKET</figcaption></figure>
+        <figure class="scene"><img src="assets/drops/drop-scene-03.png" alt="Dim hacker den filled with CRT monitors and cables."/><figcaption>III. THE DEN</figcaption></figure>
+        <figure class="scene"><img src="assets/drops/drop-scene-04.png" alt="Confrontation in a flooded subway tunnel."/><figcaption>IV. THE TUNNEL</figcaption></figure>
+        <figure class="scene"><img src="assets/drops/drop-scene-05.png" alt="Sunrise over the city after the storm."/><figcaption>V. THE SUNRISE</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OPERATIVES ============ -->
+  <section class="operatives" id="operatives" aria-label="Operatives">
+    <header class="section-head section-head--center">
+      <p class="eyebrow">— ON RECORD</p>
+      <h2>OPERATIVES</h2>
+      <p class="lede">Four of seventeen. The rest are deniable.</p>
+    </header>
+
+    <div class="ops">
+      <article class="op" tabindex="0" data-kind="op" data-key="op-01">
+        <div class="op__frame"><img src="assets/operatives/op-01.png" alt="Operative 01"/></div>
+        <div class="op__info">
+          <span class="op__id">OP. 01</span>
+          <h3>RIO "ASH" KAMARI</h3>
+          <p class="op__role">SIGNAL ENGINEER</p>
+          <p class="op__bio">Wired the mesh under Sector 4 by hand. Smokes inside.</p>
+        </div>
+      </article>
+      <article class="op" tabindex="0" data-kind="op" data-key="op-02">
+        <div class="op__frame"><img src="assets/operatives/op-02.png" alt="Operative 02"/></div>
+        <div class="op__info">
+          <span class="op__id">OP. 02</span>
+          <h3>COL. "EYELID" VONN</h3>
+          <p class="op__role">FIELD HANDLER</p>
+          <p class="op__bio">Three wars, one eye, zero callbacks owed.</p>
+        </div>
+      </article>
+      <article class="op" tabindex="0" data-kind="op" data-key="op-03">
+        <div class="op__frame"><img src="assets/operatives/op-03.png" alt="Operative 03"/></div>
+        <div class="op__info">
+          <span class="op__id">OP. 03</span>
+          <h3>"MOTH"</h3>
+          <p class="op__role">CIPHER / ARCHIVIST</p>
+          <p class="op__bio">Has not been photographed without the glasses. Does not eat.</p>
+        </div>
+      </article>
+      <article class="op" tabindex="0" data-kind="op" data-key="op-04">
+        <div class="op__frame"><img src="assets/operatives/op-04.png" alt="Operative 04"/></div>
+        <div class="op__info">
+          <span class="op__id">OP. 04</span>
+          <h3>"KILO"</h3>
+          <p class="op__role">DOORKEEPER</p>
+          <p class="op__bio">Was a sumo. Now isn't. The arm is new.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ ARCHIVE VAULT ============ -->
+  <section class="vault" id="vault" aria-label="Archive vault">
+    <header class="section-head">
+      <p class="eyebrow">— EVIDENCE LOCKER</p>
+      <h2>ARCHIVE VAULT</h2>
+      <p class="lede">Ten artifacts catalogued this cycle. Hover to read the tag.</p>
+    </header>
+
+    <div class="vault__grid">
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-01"><img src="assets/archive-vault/vault-01.png" alt=""/><figcaption><b>V-01</b> Custom revolver / engraved grip</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-02"><img src="assets/archive-vault/vault-02.png" alt=""/><figcaption><b>V-02</b> Pacific Protectorate passport</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-03"><img src="assets/archive-vault/vault-03.png" alt=""/><figcaption><b>V-03</b> Pack of RONIN cigarettes, crushed</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-04"><img src="assets/archive-vault/vault-04.png" alt=""/><figcaption><b>V-04</b> Dog tag necklace, stained</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-05"><img src="assets/archive-vault/vault-05.png" alt=""/><figcaption><b>V-05</b> Vintage camera, lens cracked</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-06"><img src="assets/archive-vault/vault-06.png" alt=""/><figcaption><b>V-06</b> Rolled cash, fictional bills</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-07"><img src="assets/archive-vault/vault-07.png" alt=""/><figcaption><b>V-07</b> Switchblade, half-open</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-08"><img src="assets/archive-vault/vault-08.png" alt=""/><figcaption><b>V-08</b> Polaroid, partially burned</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-09"><img src="assets/archive-vault/vault-09.png" alt=""/><figcaption><b>V-09</b> Wristwatch, frozen at 03:07</figcaption></figure>
+      <figure class="relic" tabindex="0" data-kind="vault" data-key="vault-10"><img src="assets/archive-vault/vault-10.png" alt=""/><figcaption><b>V-10</b> Sake cup, chipped</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============ SIGNAL SUBSCRIBE ============ -->
+  <section class="signal" id="signal" aria-label="Subscribe">
+    <div class="signal__inner">
+      <img class="signal__envelope" src="assets/ui/envelope-pixel.png" alt="" />
+      <div class="signal__copy">
+        <p class="eyebrow">— SECURE LINE</p>
+        <h2>JOIN THE SIGNAL</h2>
+        <p class="lede">One transmission a week. Encrypted at rest. We never sell your name. There is no opt-in pop-up.</p>
+        <form class="signal__form" id="signalForm" onsubmit="event.preventDefault(); document.getElementById('signalDone').hidden=false; this.hidden=true;">
+          <label class="sr-only" for="email">EMAIL</label>
+          <input id="email" name="email" type="email" required placeholder="operative@encrypted.mail" autocomplete="email" />
+          <button type="submit" class="btn btn--primary">
+            <span>UPLINK</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h10M8 4l4 4-4 4" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+          </button>
+        </form>
+        <p class="signal__done" id="signalDone" hidden>// HANDSHAKE COMPLETE. WATCH YOUR INBOX.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="foot__skyline" aria-hidden="true"></div>
+  <div class="foot__cols">
+    <div class="foot__col">
+      <span class="logo logo--small"><span class="logo__a">NEXUS</span><span class="logo__dot">.</span><span class="logo__num">7</span></span>
+      <p>An archive of forbidden signals. Distributed via mesh, paid for by ghosts.</p>
+    </div>
+    <div class="foot__col">
+      <h4>CHANNELS</h4>
+      <ul>
+        <li><a href="#manifesto">Manifesto</a></li>
+        <li><a href="#transmissions">Transmissions</a></li>
+        <li><a href="#drop">Featured</a></li>
+        <li><a href="#vault">Vault</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h4>TRANSMISSION LOG</h4>
+      <pre id="footLog">[--:--] awaiting handshake...</pre>
+    </div>
+  </div>
+  <div class="foot__bar">
+    <span>© 2087 NEXUS.7 // ALL RIGHTS RECLAIMED</span>
+    <span>BUILT IN A BLACKOUT</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="script.js" defer></script>
+</body>
+</html>

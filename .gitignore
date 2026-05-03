@@ -1,0 +1,18 @@
+# Local preview / editor
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Source / intermediate art (not used by site)
+tmp-alpha/
+raw-keyed/
+pre-size-final/
+notes/
+prompts/
+
+# OS / misc
+*.log
+*.bak
+*.tmp
