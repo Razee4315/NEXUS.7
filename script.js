@@ -15,41 +15,97 @@
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
 
-  /* -------- Boot sequence -------- */
+  /* -------- Boot sequence — real progress bar tied to asset loading -------- */
+  const bootLog = $('#bootLog');
+  const bootBar = $('#bootBar');
   const bootLines = [
     '$ NEXUS.7 // bootloader v0.07a',
     '$ initializing mesh...',
     '$ handshake [OK]',
     '$ pulling channel manifest...',
     '$ decoding 07-A...',
+    '$ loading transmissions...',
     '$ skipping corp filter...',
     '$ READY.'
   ];
-  const bootLog = $('#bootLog');
-  const bootBar = $('#bootBar');
-  let i = 0, total = bootLines.length;
 
-  function bootTick(){
-    if (i >= total){
-      bootBar.style.width = '100%';
-      setTimeout(() => {
-        document.body.dataset.loaded = 'true';
-        startLife();
-      }, 220);
+  // Track every <img> with a real src (skip the modal img which is empty until opened)
+  const trackedImgs = Array.from(document.images).filter(img => {
+    const src = img.getAttribute('src');
+    return src && src !== '' && !src.startsWith('data:');
+  });
+  const totalAssets = Math.max(1, trackedImgs.length);
+  let loadedAssets = trackedImgs.filter(i => i.complete && i.naturalWidth > 0).length;
+  let lineIdx = 0;
+  let linesDone = false;
+  let windowLoaded = (document.readyState === 'complete');
+  let dismissed = false;
+
+  function refreshBar(){
+    const realPct = loadedAssets / totalAssets;
+    // cap at 99% until everything is truly done
+    const display = (linesDone && windowLoaded && loadedAssets >= totalAssets)
+      ? 100
+      : Math.min(99, Math.round(realPct * 99));
+    bootBar.style.width = display + '%';
+  }
+  refreshBar();
+
+  // Per-image listener (counts errors as "done" so a single bad asset can't hang the loader)
+  trackedImgs.forEach(img => {
+    if (img.complete && img.naturalWidth > 0) return;
+    const tick = () => {
+      loadedAssets++;
+      refreshBar();
+      tryFinish();
+    };
+    img.addEventListener('load', tick, { once: true });
+    img.addEventListener('error', tick, { once: true });
+  });
+
+  // window.load fires after all sub-resources (scripts, css, images, fonts)
+  if (!windowLoaded){
+    window.addEventListener('load', () => {
+      windowLoaded = true;
+      refreshBar();
+      tryFinish();
+    }, { once: true });
+  }
+
+  // Print boot log lines on a steady cadence so the user sees the sequence
+  function nextLine(){
+    if (lineIdx >= bootLines.length){
+      linesDone = true;
+      refreshBar();
+      tryFinish();
       return;
     }
-    bootLog.textContent += (i ? '\n' : '') + bootLines[i];
-    i++;
-    bootBar.style.width = (i/total*100) + '%';
-    setTimeout(bootTick, reduced ? 30 : (90 + Math.random()*120));
+    bootLog.textContent += (lineIdx ? '\n' : '') + bootLines[lineIdx];
+    lineIdx++;
+    setTimeout(nextLine, reduced ? 30 : (110 + Math.random()*130));
   }
-  // Start boot once images for hero are at least decoded
-  const heroImgs = $$('.hero__layer');
-  Promise.all(heroImgs.map(img => img.decode().catch(()=>{}))).then(() => {
-    setTimeout(bootTick, 120);
-  });
-  // Hard fallback
-  setTimeout(() => { if (document.body.dataset.loaded !== 'true') { i = total; bootTick(); } }, 4000);
+  setTimeout(nextLine, 100);
+
+  function tryFinish(){
+    if (dismissed) return;
+    if (!linesDone || !windowLoaded || loadedAssets < totalAssets) return;
+    dismissed = true;
+    refreshBar();
+    // hold briefly on the full bar so the user registers READY.
+    setTimeout(() => {
+      document.body.dataset.loaded = 'true';
+      startLife();
+    }, 380);
+  }
+
+  // Hard timeout — if a single asset hangs forever, still let the page in (20s)
+  setTimeout(() => {
+    if (dismissed) return;
+    linesDone = true;
+    windowLoaded = true;
+    loadedAssets = totalAssets;
+    tryFinish();
+  }, 20000);
 
   /* -------- Custom cursor -------- */
   const cursor = $('#cursor');

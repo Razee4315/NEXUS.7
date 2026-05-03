@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/archive-vault/vault-09.png" alt="NEXUS.7 logo" width="120"/>
+<img src="assets/archive-vault/vault-04.png" alt="NEXUS.7 logo" width="120"/>
 
 # NEXUS.7
 
